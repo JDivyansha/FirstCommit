@@ -3,11 +3,11 @@ pipeline:
     any  
   
   stages : 
-    - stage : Checkout  
+    - stage : "Checkout"  
       steps :  
         - checkout: git  
   
-    - stage: Upload  
+    - stage: "Upload"  
       steps:  
         - script:  
             name: Upload File to Azure File Share  
