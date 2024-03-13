@@ -5,7 +5,10 @@ pipeline:
   stages:  
     - stage: Checkout  
       steps:  
-        - checkout: scm 
+        - script:  
+            name: Checkout code  
+            code: |  
+              git 'https://github.com/JDivyansha/FirstCommit'  
 
   
     - stage: Upload  
