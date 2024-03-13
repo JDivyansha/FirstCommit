@@ -9,9 +9,9 @@ pipeline:
           checkout:  
             scm:  
               git:  
-                url: 'https://github.com/your-repo.git'  
-                branch: 'main'  
-                credentialsId: 'your-credentials-id'  
+                url: 'https://github.com/JDivyansha/FirstComm.git'  
+                branch: 'master'  
+                  
 
   
     - stage: Upload  
