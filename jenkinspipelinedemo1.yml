@@ -3,12 +3,19 @@ pipeline:
     any  
   
   stages:  
-    - stage:Checkout  
-      steps:  
-        - script:  
-            name: Checkout code  
-            code: |  
-              git 'https://github.com/JDivyansha/FirstCommit'  
+  - stage: Checkout  
+    steps:  
+      - checkout:  
+          scm:  
+            git:  
+              branches:  
+                - name: '*/master'  
+              extensions: []  
+              userRemoteConfigs:  
+                - credentialsId: 'd1d9804e-0d0c-454e-8fec-9779179113dd'  
+                  url: 'https://github.com/JDivyansha/FirstCommit'  
+  
+  # Add more stages as needed  
 
   
     - stage: Upload  
