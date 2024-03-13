@@ -9,7 +9,7 @@ pipeline {
         }  
         stage('Upload to Azure File Share') {  
             steps {  
-                withCredentials([string(credentialsId: '8ad80f86-7c4c-4a1d-a921-a8d9e5a87919', variable: 'ACCOUNT_KEY')]) {  
+                withCredentials([string(credentialsId: '0d8e2e24-bc95-45c8-9cf3-92765b4120d0', variable: 'ACCOUNT_KEY')]) {  
                     script {  
                         sh '''  
                             ls
