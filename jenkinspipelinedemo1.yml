@@ -5,13 +5,7 @@ pipeline:
   stages:  
     - stage: Checkout  
       steps:  
-        - name: Checkout code  
-          checkout:  
-            scm:  
-              git:  
-                url: 'https://github.com/JDivyansha/FirstComm.git'  
-                branch: 'master'  
-                  
+        - checkout: scm 
 
   
     - stage: Upload  
