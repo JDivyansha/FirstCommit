@@ -3,7 +3,7 @@ pipeline:
     any  
   
   stages:  
-    - stage: Checkout  
+    - stage:Checkout  
       steps:  
         - script:  
             name: Checkout code  
