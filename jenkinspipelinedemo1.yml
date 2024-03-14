@@ -17,11 +17,11 @@ pipeline:
               curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash  
   
               # Set the storage account and file share details  
-              storageAccountName="ssissg"  
-              storageAccountKey="+ZhT4GQg3hEKI8J3RxVb4tAHKfv0zqpvNGPCevB6UUnmwT6/HAd5U72dnWxWxYMoD52dCj3n/V8S+ASt6QWtCw=="  
+              storageAccountName=""  
+              storageAccountKey=""  
               fileShareName="ssisfs"  
               localFilePath="Package.dtsx"  
-              remoteFilePath="https://ssissg.file.core.windows.net/ssisfs"  
+              remoteFilePath=""  
   
               # Mount the Azure File Share  
               sudo mkdir /mnt/azure  
