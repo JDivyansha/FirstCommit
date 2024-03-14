@@ -11,7 +11,7 @@ pipeline {
         stage('Upload to Azure File Share') {  
             environment {  
                 AZURE_STORAGE_ACCOUNT = 'ssissg'  
-                AZURE_STORAGE_KEY = credentials('0d8e2e24-bc95-45c8-9cf3-92765b4120d0')  
+                AZURE_STORAGE_KEY = credentials('ssisaccesskeys')  
                 AZURE_FILE_SHARE = 'ssisfs'  
                 AZURE_FILE_DIRECTORY = 'ssisdir'  
          }  
