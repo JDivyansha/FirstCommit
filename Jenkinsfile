@@ -10,7 +10,8 @@ pipeline {
         stage('Upload to Azure File Share') {  
             steps {  
                         script { 
-                           az storage file upload --account-name "ssissg" --account-key "RgA8KPkU05oPYs6TpdVS13X+OjUHUgNpUP/kzfXz1VO/pgT93HZ2l0bQ4HbS++xRFjlXmTgZB3ub+ASt81FL+Q==" --share-name "ssisfs" --source "C:\\Users\\admin123\\IntegrationServicesProject2.ispac" --path "ssisdir"  
+                            azureCLI commands: [[exportVariablesString: '', script: 'az ']]
+                           //az storage file upload --account-name "ssissg" --account-key "RgA8KPkU05oPYs6TpdVS13X+OjUHUgNpUP/kzfXz1VO/pgT93HZ2l0bQ4HbS++xRFjlXmTgZB3ub+ASt81FL+Q==" --share-name "ssisfs" --source "C:\\Users\\admin123\\IntegrationServicesProject2.ispac" --path "ssisdir"  
                         }  
             }      
         }  
