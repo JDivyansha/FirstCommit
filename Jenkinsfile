@@ -9,10 +9,7 @@ pipeline {
         }  
         stage('Upload to Azure File Share') {  
             steps {  
-                        script { 
-                            azureCLI commands: [[exportVariablesString: '', script: 'az ']]
-                           //az storage file upload --account-name "ssissg" --account-key "RgA8KPkU05oPYs6TpdVS13X+OjUHUgNpUP/kzfXz1VO/pgT93HZ2l0bQ4HbS++xRFjlXmTgZB3ub+ASt81FL+Q==" --share-name "ssisfs" --source "C:\\Users\\admin123\\IntegrationServicesProject2.ispac" --path "ssisdir"  
-                        }  
+                azureUpload fileShareName: 'ssisfs', filesPath: '*.dtproj', storageCredentialId: '58e146ce-9120-4687-b4f0-241f6ffe0cd8', storageType: 'filestorage'       
             }      
         }  
     }  
