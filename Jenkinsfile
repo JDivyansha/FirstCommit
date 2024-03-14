@@ -18,8 +18,7 @@ pipeline {
             
             steps {  
                         script { 
-                            bat 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'  
-                            bat 'az storage file upload-batch --account-name $AZURE_STORAGE_ACCOUNT --account-key $AZURE_STORAGE_KEY --destination $AZURE_FILE_SHARE --destination-path $AZURE_FILE_DIRECTORY --source .'  
+                           bat 'az storage file upload-batch --account-name $AZURE_STORAGE_ACCOUNT --account-key $AZURE_STORAGE_KEY --destination $AZURE_FILE_SHARE --destination-path $AZURE_FILE_DIRECTORY --source .'  
                         }  
             }
             
