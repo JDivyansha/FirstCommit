@@ -18,7 +18,8 @@ pipeline {
             
             steps {  
                         script { 
-                           bat 'az storage file upload-batch --account-name $AZURE_STORAGE_ACCOUNT --account-key $AZURE_STORAGE_KEY --destination $AZURE_FILE_SHARE --destination-path $AZURE_FILE_DIRECTORY --source .'  
+                           powershell """
+                           az storage file upload-batch --account-name $AZURE_STORAGE_ACCOUNT --account-key $AZURE_STORAGE_KEY --destination $AZURE_FILE_SHARE --destination-path $AZURE_FILE_DIRECTORY --source .  
                         }  
             }
             
