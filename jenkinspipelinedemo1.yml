@@ -3,8 +3,8 @@ pipeline:
     any  
   
   stages : 
-    - stage : "Checkout"  
-      steps :  
+    - stage :  
+        - name : Checkout
         - checkout: git  
   
     - stage: "Upload"  
