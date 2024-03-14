@@ -19,7 +19,7 @@ pipeline {
             steps {  
                         script { 
                            powershell """
-                           az storage file upload --account-name "ssissg" --account-key "RgA8KPkU05oPYs6TpdVS13X+OjUHUgNpUP/kzfXz1VO/pgT93HZ2l0bQ4HbS++xRFjlXmTgZB3ub+ASt81FL+Q==" --share-name "ssisfs" --source . --path "ssisdir"  
+                           az storage file upload --account-name "ssissg" --account-key "RgA8KPkU05oPYs6TpdVS13X+OjUHUgNpUP/kzfXz1VO/pgT93HZ2l0bQ4HbS++xRFjlXmTgZB3ub+ASt81FL+Q==" --share-name "ssisfs" --source "." --path "ssisdir"  
                         }  
             }
             
