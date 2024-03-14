@@ -1,11 +1,12 @@
 pipeline:  
   agent:  
     any  
-  
-  stages : 
-    - stage :  
-        - name : Checkout
-        - checkout: git  
+
+  stages:
+    - stage:
+        name: Checkout
+        steps:
+          - checkout: git
   
     - stage: "Upload"  
       steps:  
