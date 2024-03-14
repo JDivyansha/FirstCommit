@@ -1,5 +1,6 @@
 pipeline {  
     agent any  
+    
     stages {  
         stage('Clone Git Repository') {  
             steps {  
@@ -8,17 +9,20 @@ pipeline {
             }  
         }  
         stage('Upload to Azure File Share') {  
+            environment {  
+                AZURE_STORAGE_ACCOUNT = 'ssissg'  
+                AZURE_STORAGE_KEY = credentials('0d8e2e24-bc95-45c8-9cf3-92765b4120d0')  
+                AZURE_FILE_SHARE = 'ssisfs'  
+                AZURE_FILE_DIRECTORY = 'ssisdir'  
+         }  
+            
             steps {  
-                withCredentials([string(credentialsId: '0d8e2e24-bc95-45c8-9cf3-92765b4120d0', variable: 'ACCOUNT_KEY')]) {  
-                    script {  
-                        sh '''  
-                            ls
-                            az storage file upload-batch --destination-path https://ssissg.file.core.windows.net/ssisfs --destination-share ssisfs --source . --account-name ssissg --account-key $ACCOUNT_KEY  
-                        '''  
-                    }  
-
-            }  
+                        script { 
+                            sh 'az storage file upload-batch --account-name $AZURE_STORAGE_ACCOUNT --account-key $AZURE_STORAGE_KEY --destination $AZURE_FILE_SHARE --destination-path $AZURE_FILE_DIRECTORY --source .'  
+                        }  
+            }
+            
         }  
     }  
 }  
-}
+
