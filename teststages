@@ -41,7 +41,7 @@ pipeline {
                     } 
                  }
                 withCredentials([usernamePassword(credentialsId: 'ssisaccesskeys', usernameVariable: 'AZURE_STORAGE_KEY_USERNAME', passwordVariable: 'AZURE_STORAGE_KEY_PASSWORD')]) {
-                bat 'powershell.exe -Command "az storage file upload --account-name $storageAccount --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name %AZURE_FILE_SHARE% --source %SOURCE_PATH% --path %AZURE_FILE_DIRECTORY%'
+                bat 'powershell.exe -Command "az storage file upload --account-name '$storageAccount' --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name %AZURE_FILE_SHARE% --source %SOURCE_PATH% --path %AZURE_FILE_DIRECTORY%'
                 }  
             }  
         }  
