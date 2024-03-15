@@ -1,0 +1,48 @@
+pipeline {  
+    agent any  
+  
+    parameters {  
+        choice(  
+            choices: ['dev', 'qa', 'prod'],  
+            description: 'Select the target environment',  
+            name: 'ENVIRONMENT'  
+        )  
+    }  
+  
+    stages {  
+        stage('Clone Git Repository') {  
+            steps {  
+                git branch: 'master', url: 'https://github.com/JDivyansha/FirstCommit.git'  
+            }  
+        }  
+        stage('Upload to Azure File Share') {  
+            environment {  
+                AZURE_STORAGE_ACCOUNT_DEV = 'ssissg'  
+                AZURE_STORAGE_ACCOUNT_QA = 'qa-account'  
+                AZURE_STORAGE_ACCOUNT_PROD = 'prod-account'  
+                AZURE_FILE_SHARE = 'ssisfs'  
+                AZURE_FILE_DIRECTORY = 'ssisdir'  
+            }  
+            steps {  
+                script {  
+                    def storageAccount  
+                    switch (params.ENVIRONMENT) {  
+                        case 'dev':  
+                            storageAccount = env.AZURE_STORAGE_ACCOUNT_DEV  
+                            break  
+                        case 'qa':  
+                            storageAccount = env.AZURE_STORAGE_ACCOUNT_QA  
+                            break  
+                        case 'prod':  
+                            storageAccount = env.AZURE_STORAGE_ACCOUNT_PROD  
+                            break  
+                        default:  
+                            error("Invalid environment selected")  
+                    }  
+                withCredentials([usernamePassword(credentialsId: 'ssisaccesskeys', usernameVariable: 'AZURE_STORAGE_KEY_USERNAME', passwordVariable: 'AZURE_STORAGE_KEY_PASSWORD')]) {
+                bat 'powershell.exe -Command "az storage file upload --account-name %AZURE_STORAGE_ACCOUNT% --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name %AZURE_FILE_SHARE% --source %SOURCE_PATH% --path %AZURE_FILE_DIRECTORY%'
+                }  
+            }  
+        }  
+    }  
+}  
