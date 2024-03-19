@@ -7,7 +7,7 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/JDivyansha/FirstCommit.git'
             }  
         }  
-        stage('Dev - Upload to Azure File Share') {  
+        stage('DEV: Upload to Azure File Share') {  
             environment {  
                 AZURE_STORAGE_ACCOUNT = 'ssissg'  
                 AZURE_STORAGE_KEY = credentials('ssisaccesskeys')  
@@ -20,16 +20,11 @@ pipeline {
                 bat 'powershell.exe -Command "az storage file upload --account-name %AZURE_STORAGE_ACCOUNT% --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name %AZURE_FILE_SHARE% --source %SOURCE_PATH% --path %AZURE_FILE_DIRECTORY%'       
             }  
         }
+        }
         stage('Non-Prod - Upload to Azure File Share') {  
             steps {  
-                bat 'powershell.exe -Command write-host "Non-Prod Upload packege to Azure File Share"'
+                bat 'powershell.exe -Command 'write-host "Non-Prod Upload packege to Azure File Share"'
             }  
         }
-        stage('Prod - Upload to Azure File Share') {  
-            steps {  
-                bat 'powershell.exe -Command write-host "Prod Upload packege to Azure File Share"'
-            }  
-        }    
-        }  
     }  
 }  
