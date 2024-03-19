@@ -22,12 +22,12 @@ pipeline {
         }
         stage('Non-Prod - Upload to Azure File Share') {  
             steps {  
-                bat 'powershell.exe -Command 'write-host "Non-Prod Upload packege to Azure File Share"'
+                bat 'powershell.exe -Command write-host "Non-Prod Upload packege to Azure File Share"'
             }  
         }
         stage('Prod - Upload to Azure File Share') {  
             steps {  
-                bat 'powershell.exe -Command 'write-host "Prod Upload packege to Azure File Share"'
+                bat 'powershell.exe -Command write-host "Prod Upload packege to Azure File Share"'
             }  
         }    
         }  
