@@ -27,5 +27,19 @@ pipeline {
         }  
  
         // Add your other stages here
+       stage('Clone Git Repository') {
+            steps {
+                git branch: "${params.GIT_BRANCH}", url: "${params.GIT_URL}"
+            }
+        }
+      stage('Upload to Azure File Share') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: "${params.AZURE_STORAGE_KEY}", usernameVariable: 'AZURE_STORAGE_KEY_USERNAME', passwordVariable: 'AZURE_STORAGE_KEY_PASSWORD')]) {
+                    bat 'powershell.exe -Command "az storage file upload --account-name ${params.AZURE_STORAGE_ACCOUNT} --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name ${params.AZURE_FILE_SHARE} --source ${params.SOURCE_PATH} --path ${params.AZURE_FILE_DIRECTORY}"'
+                }
+            }
+ }
+
+
     }  
 }
