@@ -1,9 +1,6 @@
-parameters {  
     string(name: 'GIT_URL', defaultValue: 'https://github.com/JDivyansha/FirstCommit.git', description: 'Git repository URL')  
     string(name: 'AZURE_STORAGE_ACCOUNT', defaultValue: 'ssissg', description: 'Azure Storage Account')  
     string(name: 'AZURE_STORAGE_KEY', defaultValue: '', description: 'Azure Storage Key')  
     string(name: 'AZURE_FILE_SHARE', defaultValue: 'ssisfs', description: 'Azure File Share')  
     string(name: 'AZURE_FILE_DIRECTORY', defaultValue: 'ssisdir', description: 'Azure File Directory')  
-    string(name: 'SOURCE_PATH', defaultValue: 'C:/Users/admin123/IntegrationServicesProject2.ispac', description: 'Source Path')  
-
-}  
+    string(name: 'SOURCE_PATH', defaultValue: 'C:/Users/admin123/IntegrationServicesProject2.ispac', description: 'Source Path') 
