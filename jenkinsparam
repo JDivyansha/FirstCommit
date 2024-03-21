@@ -1,0 +1,31 @@
+pipeline {  
+    agent any  
+ 
+    parameters {
+        string(name: 'JSON_FILE_PATH', defaultValue: 'variables.json', description: 'Path to the JSON parameter file')
+    }
+
+    stages {  
+        stage('Read Parameters from File') {  
+            steps {  
+                script {
+                    def jsonFilePath = params.JSON_FILE_PATH
+                    def jsonContent = readFile(jsonFilePath)
+                    def jsonParams = new groovy.json.JsonSlurper().parseText(jsonContent)
+ 
+                    // Access parameters from the JSON object
+                    def gitUrl = jsonParams.GIT_URL
+                    def azureStorageAccount = jsonParams.AZURE_STORAGE_ACCOUNT
+                    def azureStorageKey = jsonParams.AZURE_STORAGE_KEY
+                    def azureFileShare = jsonParams.AZURE_FILE_SHARE
+                    def azureFileDirectory = jsonParams.AZURE_FILE_DIRECTORY
+                    def sourcePath = jsonParams.SOURCE_PATH
+
+                    // Proceed with the pipeline using the parameters
+                }
+            }  
+        }  
+ 
+        // Add your other stages here
+    }  
+}
