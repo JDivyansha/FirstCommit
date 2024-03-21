@@ -1,0 +1,9 @@
+{
+  "GIT_URL": "https://github.com/JDivyansha/FirstCommit.git",
+  "AZURE_STORAGE_ACCOUNT": "ssissg",
+  "AZURE_STORAGE_KEY": "ssisaccesskeys",
+  "AZURE_FILE_SHARE": "ssisfs",
+  "AZURE_FILE_DIRECTORY": "ssisdir",
+  "SOURCE_PATH": "C:/Users/admin123/IntegrationServicesProject2.ispac"
+}
+
