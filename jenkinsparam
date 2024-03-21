@@ -2,7 +2,7 @@ pipeline {
     agent any  
  
     parameters {
-        string(name: 'JSON_FILE_PATH', defaultValue: '', description: 'Path to the JSON parameter file')
+        string(name: 'JSON_FILE_PATH', defaultValue: 'Variables.json', description: 'Path to the JSON parameter file')
     }
 
     stages {  
