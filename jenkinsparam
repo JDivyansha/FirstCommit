@@ -1,45 +1,45 @@
 pipeline {  
     agent any  
- 
-    parameters {
-        string(name: 'JSON_FILE_PATH', defaultValue: 'Variables.json', description: 'Path to the JSON parameter file')
-    }
-
+  
+    parameters {  
+        string(name: 'GIT_URL', defaultValue: 'https://github.com/JDivyansha/FirstCommit.git', description: 'Git repository URL')  
+        string(name: 'AZURE_STORAGE_ACCOUNT', defaultValue: 'ssissg', description: 'Azure Storage Account')  
+        string(name: 'AZURE_STORAGE_KEY', defaultValue: '', description: 'Azure Storage Key')  
+        string(name: 'AZURE_FILE_SHARE', defaultValue: 'ssisfs', description: 'Azure File Share')  
+        string(name: 'AZURE_FILE_DIRECTORY', defaultValue: 'ssisdir', description: 'Azure File Directory')  
+        string(name: 'SOURCE_PATH', defaultValue: 'C:/Users/admin123/IntegrationServicesProject2.ispac', description: 'Source Path')  
+    }  
+  
     stages {  
-        stage('Read Parameters from File') {  
+        stage('Clone Git Repository') {  
             steps {  
-                script {
-                    def jsonFilePath = params.JSON_FILE_PATH
-                    def jsonContent = readFile(jsonFilePath)
-                    def jsonParams = new groovy.json.JsonSlurper().parseText(jsonContent)
- 
-                    // Access parameters from the JSON object
-                    def gitUrl = jsonParams.GIT_URL
-                    def azureStorageAccount = jsonParams.AZURE_STORAGE_ACCOUNT
-                    def azureStorageKey = jsonParams.AZURE_STORAGE_KEY
-                    def azureFileShare = jsonParams.AZURE_FILE_SHARE
-                    def azureFileDirectory = jsonParams.AZURE_FILE_DIRECTORY
-                    def sourcePath = jsonParams.SOURCE_PATH
-
-                    // Proceed with the pipeline using the parameters
-                }
+                git branch: 'master', url: "${params.GIT_URL}"  
             }  
         }  
- 
-        // Add your other stages here
-       stage('Clone Git Repository') {
-            steps {
-                git branch: "${params.GIT_BRANCH}", url: "${params.GIT_URL}"
-            }
-        }
-      stage('Upload to Azure File Share') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: "${params.AZURE_STORAGE_KEY}", usernameVariable: 'AZURE_STORAGE_KEY_USERNAME', passwordVariable: 'AZURE_STORAGE_KEY_PASSWORD')]) {
-                    bat 'powershell.exe -Command "az storage file upload --account-name ${params.AZURE_STORAGE_ACCOUNT} --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name ${params.AZURE_FILE_SHARE} --source ${params.SOURCE_PATH} --path ${params.AZURE_FILE_DIRECTORY}"'
-                }
-            }
- }
-
-
+        stage('DEV: Upload to Azure File Share') {  
+            environment {  
+                AZURE_STORAGE_ACCOUNT = "${params.AZURE_STORAGE_ACCOUNT}"  
+                AZURE_STORAGE_KEY = "${params.AZURE_STORAGE_KEY}"  
+                AZURE_FILE_SHARE = "${params.AZURE_FILE_SHARE}"  
+                AZURE_FILE_DIRECTORY = "${params.AZURE_FILE_DIRECTORY}"  
+                SOURCE_PATH = "${params.SOURCE_PATH}"  
+            }  
+            steps {  
+                withCredentials([usernamePassword(credentialsId: 'ssisaccesskeys', usernameVariable: 'AZURE_STORAGE_KEY_USERNAME', passwordVariable: 'AZURE_STORAGE_KEY_PASSWORD')]) {  
+                    bat 'powershell.exe -Command "az storage file upload --account-name %AZURE_STORAGE_ACCOUNT% --account-key %AZURE_STORAGE_KEY_PASSWORD% --share-name %AZURE_FILE_SHARE% --source %SOURCE_PATH% --path %AZURE_FILE_DIRECTORY%'  
+                }  
+            }  
+        }  
+        stage('Non-Prod - Upload to Azure File Share') {  
+            steps {  
+                bat 'powershell.exe -Command write-host "Non-Prod Upload package to Azure File Share"'  
+            }  
+        }  
+        stage('Prod - Upload to Azure File Share') {  
+            steps {  
+                bat 'powershell.exe -Command write-host "Prod Upload package to Azure File Share"'  
+            }  
+        }  
     }  
-}
+}  
+
