@@ -4,9 +4,20 @@ pipeline {
        stages {  
         stage('Load Parameters') {  
             steps {  
-                properties([  
-                    load('pipeline-parameters.groovy')  
-                ])  
+                script {  
+                    def parametersFile = readFile('pipeline-parameters.txt')  
+                    def parameters = parametersFile.readLines().collectEntries { line ->  
+                        def (key, value) = line.split('=')  
+                        [(key): value]  
+                    }  
+  
+                    env.GIT_URL = parameters.GIT_URL  
+                    env.AZURE_STORAGE_ACCOUNT = parameters.AZURE_STORAGE_ACCOUNT  
+                    env.AZURE_STORAGE_KEY = parameters.AZURE_STORAGE_KEY  
+                    env.AZURE_FILE_SHARE = parameters.AZURE_FILE_SHARE  
+                    env.AZURE_FILE_DIRECTORY = parameters.AZURE_FILE_DIRECTORY  
+                    env.SOURCE_PATH = parameters.SOURCE_PATH  
+                }  
             }  
         }  
         stage('Clone Git Repository') {  
